@@ -2,13 +2,17 @@ import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/data/site";
 
+const BASE_URL = "https://snowdev-github-io.vercel.app";
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
+
   return [
     {
-      url: siteConfig.url,
-      lastModified: new Date(),
+      url: `${BASE_URL}/`,
+      lastModified,
       changeFrequency: "monthly",
-      priority: 1,
+      priority: 1.0,
     },
   ];
 }
