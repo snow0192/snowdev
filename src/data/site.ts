@@ -8,7 +8,7 @@ export const siteConfig = {
   visionSecret: "https://github.com/snow0192/vision-secret",
   httpSecurityAnalyzer: "https://github.com/snow0192/http-security-analyzer",
   completeDiscord: "https://github.com/snow0192/complete-discord",
-  contactEmail: "YOUR_EMAIL",
+  contactEmail: "contatosnow735@gmail.com",
 } as const;
 
 export type SiteConfig = typeof siteConfig;
