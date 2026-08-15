@@ -32,11 +32,14 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+
   title: {
     default: en.meta.title,
     template: `%s — ${siteConfig.name}`,
   },
+
   description: en.meta.description,
+
   keywords: [
     "Snow",
     "snow0192",
@@ -48,11 +51,19 @@ export const metadata: Metadata = {
     "Security",
     "Automation",
   ],
+
   authors: [{ name: "Snow", url: siteConfig.github }],
   creator: "Snow",
+
+  // Google Search Console verification
+  verification: {
+    google: "rF_hMEBfO_0hQtIHQJx1K2jFvBEhgUEMUwvk3uHQ-fI",
+  },
+
   alternates: {
     canonical: "/",
   },
+
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -60,18 +71,27 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: en.meta.title,
     description: en.meta.description,
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: en.meta.title,
     description: en.meta.description,
     images: ["/opengraph-image.png"],
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   icons: {
     icon: "/icon.svg",
   },
@@ -83,13 +103,19 @@ export const viewport: Viewport = {
 
 const LANGUAGE_SCRIPT = `(function(){try{var l;var m=document.cookie.match(/(?:^|;\\s*)snow-lang=([a-z]{2})/);var s;try{s=localStorage.getItem('snow-lang')}catch(e){}l=m?m[1]:(s||(navigator.language||'en').toLowerCase().slice(0,2));if(l!=='pt'&&l!=='es'&&l!=='en')l='en';document.documentElement.lang=l;try{document.cookie='snow-lang='+l+';path=/;max-age=31536000;samesite=lax'}catch(e){}}catch(e){}})();`;
 
-function detectLocale(cookieValue: string | undefined, acceptLanguage: string | null): Locale {
+function detectLocale(
+  cookieValue: string | undefined,
+  acceptLanguage: string | null,
+): Locale {
   if (isLocale(cookieValue)) return cookieValue;
+
   if (acceptLanguage) {
     const accepted = acceptLanguage.toLowerCase();
+
     if (accepted.includes("pt")) return "pt";
     if (accepted.includes("es")) return "es";
   }
+
   return "en";
 }
 
@@ -98,16 +124,25 @@ export default async function RootLayout({
 }: LayoutProps<"/">) {
   const cookieStore = await cookies();
   const headerStore = await headers();
+
   const initialLang = detectLocale(
     cookieStore.get("snow-lang")?.value,
     headerStore.get("accept-language"),
   );
 
   return (
-    <html lang={initialLang} className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang={initialLang}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: LANGUAGE_SCRIPT }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: LANGUAGE_SCRIPT,
+          }}
+        />
       </head>
+
       <body className="grain min-h-svh">
         <a
           href="#main"
@@ -115,6 +150,7 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
+
         <LanguageProvider initialLang={initialLang}>
           <ScrollProgress />
           <CursorGlow />
